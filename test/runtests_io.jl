@@ -47,6 +47,11 @@ include(joinpath(@__DIR__, "test_expressions_dicts.jl"))
         dd_comp = IMAS.hdf2imas(joinpath(test_dir, "test_comp.hdf"))
         @test ddh == dd_comp
 
+
+        IMAS.imas2hdf(ddh, joinpath(test_dir, "test_comp.hdf"); mode="a", strict=false, freeze=false, compress=9)
+        dd_comp = IMAS.hdf2imas(joinpath(test_dir, "test_comp.hdf"))
+        @test ddh == dd_comp
+
         # Compare file sizes
         uncompressed_size = stat(joinpath(test_dir, "test.hdf")).size
         compressed_size   = stat(joinpath(test_dir, "test_comp.hdf")).size
